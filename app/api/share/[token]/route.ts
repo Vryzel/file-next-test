@@ -3,9 +3,9 @@ import { getFileSystemInstance, getStore } from "@/app/lib/file-next";
 
 export const dynamic = "force-dynamic";
 
-const handler = createShareRouteHandler({
-  store: getStore(),
-  fs: getFileSystemInstance(),
-});
-
-export const GET = handler;
+export function GET(req: Request): Promise<Response> {
+  return createShareRouteHandler({
+    store: getStore(),
+    fs: getFileSystemInstance(),
+  })(req);
+}
