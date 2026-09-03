@@ -5,11 +5,7 @@ const config: Config = {
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
-    // The shadcn-style registry components live in the main repo.
-    // Scan them so Tailwind picks up their class names.
-    "../file-next/registry/components/file-next/**/*.{ts,tsx}",
-    "../file-next/packages/ui/src/**/*.{ts,tsx}",
-    "../file-next/packages/ui/dist/**/*.{js,mjs}",
+    "./node_modules/@vryzel/file-next-ui/dist/**/*.{js,mjs}",
   ],
   theme: {
     container: {
