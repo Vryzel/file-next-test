@@ -1,0 +1,11 @@
+node_modules
+.next
+.data
+data
+.env
+.env.*
+.git
+*.log
+.DS_Store
+README.md
+scripts

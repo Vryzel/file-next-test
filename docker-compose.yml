@@ -1,0 +1,33 @@
+# Postgres for the file-next test project.
+#
+# Why: real DB so we can exercise the PostgresMetadataStore end-to-end
+# against a real bucket (R2 or S3) without leaving the host.
+#
+# Usage:
+#   docker compose up -d
+#   pnpm verify:postgres    # runs the standalone script
+#   docker compose down     # tear down
+#
+# Connection: postgres://file_next:file_next@localhost:5433/file_next
+# (port 5433 on host to avoid clashing with any local Postgres)
+services:
+  postgres:
+    image: postgres:16.4-alpine
+    container_name: file-next-postgres
+    environment:
+      POSTGRES_USER: file_next
+      POSTGRES_PASSWORD: file_next
+      POSTGRES_DB: file_next
+    ports:
+      - "5433:5432"
+    volumes:
+      # Persistent data dir so the schema survives container restarts.
+      - file-next-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U file_next -d file_next"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  file-next-pg-data:
